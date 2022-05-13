@@ -2,9 +2,9 @@ package br.com.banco.services;
 
 import br.com.banco.dto.FiltroRequestDTO;
 import br.com.banco.entities.Transferencia;
+import br.com.banco.exceptions.ObjectNotFoundException;
 import br.com.banco.repositories.TransferenciaRepository;
 import br.com.banco.utils.DateUtils;
-import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,7 +46,7 @@ public class TransferenciaService {
         }else
             obj = transferenciaRepository.findAllByOperadorTransacao(filtro.getNomeOperador());
 
-        if(obj.isEmpty()) throw new ObjectNotFoundException(1, "Não foram encontradas transferências com os filtros informados");
+        if(obj.isEmpty()) throw new ObjectNotFoundException("Não foram encontradas transferências com os filtros informados");
         return obj;
     }
 
