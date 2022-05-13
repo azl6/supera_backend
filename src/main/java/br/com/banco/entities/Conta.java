@@ -13,7 +13,8 @@ public class Conta implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_conta")
     private Integer id;
-    private String nome_responsavel;
+    @Column(name = "nome_responsavel")
+    private String nomeResponsavel;
 
     @JsonIgnore
     @OneToMany(mappedBy = "conta")
@@ -22,9 +23,9 @@ public class Conta implements Serializable {
     public Conta() {
     }
 
-    public Conta(Integer id, String nome_responsavel, List<Transferencia> transferencia) {
+    public Conta(Integer id, String nomeResponsavel, List<Transferencia> transferencia) {
         this.id = id;
-        this.nome_responsavel = nome_responsavel;
+        this.nomeResponsavel = nomeResponsavel;
         this.transferencia = transferencia;
     }
 
@@ -32,7 +33,7 @@ public class Conta implements Serializable {
     public String toString() {
         return "Conta{" +
                 "id=" + id +
-                ", nome_responsavel='" + nome_responsavel + '\'' +
+                ", nome_responsavel='" + nomeResponsavel + '\'' +
                 ", transferencia=" + transferencia +
                 '}';
     }
@@ -45,12 +46,12 @@ public class Conta implements Serializable {
         this.id = id;
     }
 
-    public String getNome_responsavel() {
-        return nome_responsavel;
+    public String getNomeResponsavel() {
+        return nomeResponsavel;
     }
 
-    public void setNome_responsavel(String nome_responsavel) {
-        this.nome_responsavel = nome_responsavel;
+    public void setNomeResponsavel(String nomeResponsavel) {
+        this.nomeResponsavel = nomeResponsavel;
     }
 
     public List<Transferencia> getTransferencia() {

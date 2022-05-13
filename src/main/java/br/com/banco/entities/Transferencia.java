@@ -1,16 +1,10 @@
 package br.com.banco.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
-import java.util.Date;
-import java.util.Locale;
 
 @Entity
 public class Transferencia implements Serializable {
@@ -40,7 +34,18 @@ public class Transferencia implements Serializable {
         this.tipo = tipo;
         this.operadorTransacao = operadorTransacao;
         this.conta = conta;
+    }
 
+    @Override
+    public String toString() {
+        return "Transferencia{" +
+                "id=" + id +
+                ", dataTransferencia=" + dataTransferencia +
+                ", valor=" + valor +
+                ", tipo='" + tipo + '\'' +
+                ", operadorTransacao='" + operadorTransacao + '\'' +
+                ", contaResponsavel=" + conta.getNomeResponsavel() +
+                '}';
     }
 
     public Integer getId() {
@@ -75,12 +80,12 @@ public class Transferencia implements Serializable {
         this.tipo = tipo;
     }
 
-    public String getNome_operador_transacao() {
+    public String getOperadorTransacao() {
         return operadorTransacao;
     }
 
-    public void setNome_operador_transacao(String nome_operador_transacao) {
-        this.operadorTransacao = nome_operador_transacao;
+    public void setOperadorTransacao(String operadorTransacao) {
+        this.operadorTransacao = operadorTransacao;
     }
 
     public Conta getConta() {

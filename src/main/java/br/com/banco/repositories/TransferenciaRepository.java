@@ -18,7 +18,7 @@ public interface TransferenciaRepository extends JpaRepository<Transferencia, In
     List<Transferencia> findAllByDataTransferenciaBetweenAndOperadorTransacao(
                                                                             LocalDateTime dataInicio,
                                                                             LocalDateTime dataFim,
-                                                                            String operadorTransacao
+                                                                            String destino
     );
     List<Transferencia> findAllByOperadorTransacao(String operadorTransacao);
 }

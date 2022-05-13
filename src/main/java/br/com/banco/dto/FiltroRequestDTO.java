@@ -9,10 +9,10 @@ import javax.validation.constraints.Pattern;
 
 public class FiltroRequestDTO {
 
-    @Pattern(regexp = "^\\d{2}\\-\\d{2}\\-\\d{4}\\s*(?:\\d{2}:\\d{2}(?::\\d{2})?)?$", message = "O campo \"dataInicio\" deve seguir o seguinte padrão: dd-MM-yyyy, , tendo os campos HH:mm:ss como opcionais.")
+    @Pattern(regexp = "^\\d{2}\\-\\d{2}\\-\\d{4}\\s*(?:\\d{2}:\\d{2}(?::\\d{2})?)?$", message = "O campo <dataInicio> deve seguir o seguinte padrão: dd-MM-yyyy (hh:mm:ss opcional).")
     private String dataInicio;
 
-    @Pattern(regexp = "^\\d{2}\\-\\d{2}\\-\\d{4}\\s*(?:\\d{2}:\\d{2}(?::\\d{2})?)?$", message = "O campo \"dataFim\" deve seguir o seguinte padrão: dd-MM-yyyy, tendo os campos HH:mm:ss como opcionais.")
+    @Pattern(regexp = "^\\d{2}\\-\\d{2}\\-\\d{4}\\s*(?:\\d{2}:\\d{2}(?::\\d{2})?)?$", message = "O campo <dataFim> deve seguir o seguinte padrão: dd-MM-yyyy (hh:mm:ss opcional).")
     private String dataFim;
 
     private String nomeOperador;
@@ -21,6 +21,15 @@ public class FiltroRequestDTO {
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
         this.nomeOperador = nomeOperador;
+    }
+
+    @Override
+    public String toString() {
+        return "FiltroRequestDTO{" +
+                "dataInicio='" + dataInicio + '\'' +
+                ", dataFim='" + dataFim + '\'' +
+                ", nomeOperador='" + nomeOperador + '\'' +
+                '}';
     }
 
     public String getDataInicio() {

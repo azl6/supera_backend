@@ -1,5 +1,6 @@
 package br.com.banco.controllers;
 
+import br.com.banco.exceptions.NullFilterException;
 import br.com.banco.exceptions.ObjectNotFoundException;
 import br.com.banco.exceptions.StandardError;
 import br.com.banco.utils.DateUtils;
@@ -38,4 +39,13 @@ public class ExceptionController {
 
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(standardError);
         }
+
+    @ExceptionHandler(NullFilterException.class)
+    public ResponseEntity<StandardError> nullFilter(NullFilterException e){
+        StandardError standardError = new StandardError(e.getMessage(),
+                DateUtils.convertSystemTimeMillisToString(System.currentTimeMillis()),
+                HttpStatus.BAD_REQUEST.value());
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(standardError);
+    }
 }
