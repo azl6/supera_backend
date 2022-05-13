@@ -18,26 +18,28 @@ public class Transferencia implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
     @Column(name = "data_transferencia")
     private LocalDateTime dataTransferencia;
     private Double valor;
     private String tipo;
-    private String nome_operador_transacao;
+    @Column(name = "nome_operador_transacao")
+    private String operadorTransacao;
     @ManyToOne
     private Conta conta;
+    private Integer conta_id;
 
     public Transferencia() {
     }
 
-    public Transferencia(Integer id, LocalDateTime  dataTransferencia, Double valor, String tipo, String nome_operador_transacao, Conta conta) {
+    public Transferencia(Integer id, LocalDateTime  dataTransferencia, Double valor, String tipo, String operadorTransacao, Conta conta, Integer conta_id) {
         this.id = id;
         this.dataTransferencia = dataTransferencia;
         this.valor = valor;
         this.tipo = tipo;
-        this.nome_operador_transacao = nome_operador_transacao;
+        this.operadorTransacao = operadorTransacao;
         this.conta = conta;
+        this.conta_id = conta_id;
     }
 
     @Override
@@ -47,7 +49,7 @@ public class Transferencia implements Serializable {
                 ", data_transferencia=" + dataTransferencia +
                 ", valor=" + valor +
                 ", tipo='" + tipo + '\'' +
-                ", nome_operador_transacao='" + nome_operador_transacao + '\'' +
+                ", nome_operador_transacao='" + operadorTransacao + '\'' +
                 ", conta=" + conta +
                 '}';
     }
@@ -85,11 +87,11 @@ public class Transferencia implements Serializable {
     }
 
     public String getNome_operador_transacao() {
-        return nome_operador_transacao;
+        return operadorTransacao;
     }
 
     public void setNome_operador_transacao(String nome_operador_transacao) {
-        this.nome_operador_transacao = nome_operador_transacao;
+        this.operadorTransacao = nome_operador_transacao;
     }
 
     public Conta getConta() {
@@ -98,5 +100,13 @@ public class Transferencia implements Serializable {
 
     public void setConta(Conta conta) {
         this.conta = conta;
+    }
+
+    public Integer getConta_id() {
+        return conta_id;
+    }
+
+    public void setConta_id(Integer conta_id) {
+        this.conta_id = conta_id;
     }
 }

@@ -26,12 +26,22 @@ public class TransferenciaService {
     public List<Transferencia> findAllFiltered(Filtro filtro){
         Optional<List<Transferencia>> obj = Optional.empty();
 
-        LocalDateTime dataInicio = DateUtils.strToLocalDateTime(filtro.getDataInicio());
-        LocalDateTime dataFim = DateUtils.strToLocalDateTime(filtro.getDataFim());
-
         if(filtro.getDataInicio() != null && filtro.getDataFim() != null){
-            obj = transferenciaRepository.findAllByDataTransferenciaBetween(dataInicio, dataFim);
-        }
+
+            LocalDateTime dataInicio = DateUtils.strToLocalDateTime(filtro.getDataInicio());
+            LocalDateTime dataFim = DateUtils.strToLocalDateTime(filtro.getDataFim());
+
+            if(filtro.getNomeOperador() == null)
+                obj = transferenciaRepository.
+                        findAllByDataTransferenciaBetween(dataInicio,
+                                                          dataFim);
+            else
+                obj = transferenciaRepository.
+                        findAllByDataTransferenciaBetweenAndOperadorTransacao(dataInicio,
+                                                                              dataFim,
+                                                                              filtro.getNomeOperador());
+        }else
+            obj = transferenciaRepository.findAllByOperadorTransacao(filtro.getNomeOperador());
 
         return obj.orElseThrow(() -> new ObjectNotFoundException(1, "Não foram encontradas transferências com os filtros informados"));
     }
