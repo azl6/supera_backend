@@ -3,7 +3,6 @@ package br.com.banco.controllers;
 import br.com.banco.dto.FiltroRequestDTO;
 import br.com.banco.entities.Transferencia;
 import br.com.banco.services.TransferenciaService;
-import br.com.banco.utils.Filtro;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
