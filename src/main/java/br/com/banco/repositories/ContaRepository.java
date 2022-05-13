@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ContaRepository extends JpaRepository<Conta, Integer> {
+
+    boolean existsById(Integer contaId);
 }

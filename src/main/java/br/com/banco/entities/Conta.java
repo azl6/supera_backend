@@ -22,6 +22,11 @@ public class Conta implements Serializable {
     public Conta() {
     }
 
+    public Conta(Integer id, String nomeResponsavel) {
+        this.id = id;
+        this.nomeResponsavel = nomeResponsavel;
+    }
+
     public Conta(Integer id, String nomeResponsavel, List<Transferencia> transferencia) {
         this.id = id;
         this.nomeResponsavel = nomeResponsavel;

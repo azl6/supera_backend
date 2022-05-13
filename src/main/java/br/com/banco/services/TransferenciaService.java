@@ -6,6 +6,7 @@ import br.com.banco.entities.Transferencia;
 import br.com.banco.exceptions.InvalidDateException;
 import br.com.banco.exceptions.NullFilterException;
 import br.com.banco.exceptions.ObjectNotFoundException;
+import br.com.banco.repositories.ContaRepository;
 import br.com.banco.repositories.TransferenciaRepository;
 import br.com.banco.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,9 @@ public class TransferenciaService {
 
     @Autowired
     private TransferenciaRepository transferenciaRepository;
+
+    @Autowired
+    ContaRepository contaRepository;
 
     public List<Transferencia> findAllByContaId(Integer contaId){
         //validando se a conta informada existe
@@ -110,7 +114,7 @@ public class TransferenciaService {
         }
 
         private void validateBankAccountExists(Integer contaId){
-            if(!transferenciaRepository.existsByContaId(contaId))
+            if(!contaRepository.existsById(contaId))
                 throw new ObjectNotFoundException("O número da conta informada não está cadastrado");
         }
 
