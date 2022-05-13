@@ -1,28 +1,39 @@
 package br.com.banco.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import java.io.Serializable;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
+import java.util.Date;
+import java.util.Locale;
 
 @Entity
-public class Transferencia {
+public class Transferencia implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private LocalDate data_transferencia;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
+    @Column(name = "data_transferencia")
+    private LocalDateTime dataTransferencia;
     private Double valor;
     private String tipo;
     private String nome_operador_transacao;
-
     @ManyToOne
     private Conta conta;
 
     public Transferencia() {
     }
 
-    public Transferencia(Integer id, LocalDate data_transferencia, Double valor, String tipo, String nome_operador_transacao, Conta conta) {
+    public Transferencia(Integer id, LocalDateTime  dataTransferencia, Double valor, String tipo, String nome_operador_transacao, Conta conta) {
         this.id = id;
-        this.data_transferencia = data_transferencia;
+        this.dataTransferencia = dataTransferencia;
         this.valor = valor;
         this.tipo = tipo;
         this.nome_operador_transacao = nome_operador_transacao;
@@ -33,7 +44,7 @@ public class Transferencia {
     public String toString() {
         return "Transferencia{" +
                 "id=" + id +
-                ", data_transferencia=" + data_transferencia +
+                ", data_transferencia=" + dataTransferencia +
                 ", valor=" + valor +
                 ", tipo='" + tipo + '\'' +
                 ", nome_operador_transacao='" + nome_operador_transacao + '\'' +
@@ -49,12 +60,12 @@ public class Transferencia {
         this.id = id;
     }
 
-    public LocalDate getData_transferencia() {
-        return data_transferencia;
+    public LocalDateTime  getDataTransferencia() {
+        return dataTransferencia;
     }
 
-    public void setData_transferencia(LocalDate data_transferencia) {
-        this.data_transferencia = data_transferencia;
+    public void setDataTransferencia(LocalDateTime  dataTransferencia) {
+        this.dataTransferencia = dataTransferencia;
     }
 
     public Double getValor() {

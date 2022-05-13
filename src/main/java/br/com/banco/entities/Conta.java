@@ -1,10 +1,11 @@
 package br.com.banco.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
-public class Conta {
+public class Conta implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
