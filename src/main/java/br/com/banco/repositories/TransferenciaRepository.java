@@ -19,6 +19,5 @@ public interface TransferenciaRepository extends JpaRepository<Transferencia, In
                                                                             String destino
     );
     List<Transferencia> findAllByOperadorTransacao(String operadorTransacao);
-
     boolean existsByContaId(Integer contaId);
 }

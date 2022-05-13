@@ -2,6 +2,7 @@ package br.com.banco.services;
 
 import br.com.banco.dto.FiltroRequestDTO;
 import br.com.banco.entities.Transferencia;
+import br.com.banco.exceptions.InvalidDateException;
 import br.com.banco.exceptions.NullFilterException;
 import br.com.banco.exceptions.ObjectNotFoundException;
 import br.com.banco.repositories.TransferenciaRepository;
@@ -45,10 +46,14 @@ public class TransferenciaService {
             LocalDateTime dataInicio = DateUtils.strToLocalDateTime(filtro.getDataInicio());
             LocalDateTime dataFim = DateUtils.strToLocalDateTime(filtro.getDataFim());
 
+            //validando se a data final é maior que a data inicial
+            if (dataFim.isBefore(dataInicio))
+                throw new InvalidDateException("A <dataInicio> informada é mais atual que a <dataFim>");
+
             //filtrando entre duas datas
             obj = transferenciaRepository.findAllByDataTransferenciaBetween(dataInicio, dataFim);
 
-            //filtrando por data e operador caso todos os filtros sejam passados
+            //filtrando por data e operador caso o filtro de operador seja passado
             if(filtro.getNomeOperador() != null)
                 obj = filterByOperador(obj, filtro);
 

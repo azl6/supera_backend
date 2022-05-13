@@ -14,7 +14,6 @@ public class Transferencia implements Serializable {
 
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
     @Column(name = "data_transferencia")
-
     private LocalDateTime dataTransferencia;
     private Double valor;
     private String tipo;

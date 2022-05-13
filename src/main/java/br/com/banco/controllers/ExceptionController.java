@@ -1,5 +1,6 @@
 package br.com.banco.controllers;
 
+import br.com.banco.exceptions.InvalidDateException;
 import br.com.banco.exceptions.NullFilterException;
 import br.com.banco.exceptions.ObjectNotFoundException;
 import br.com.banco.exceptions.StandardError;
@@ -47,5 +48,14 @@ public class ExceptionController {
                 HttpStatus.BAD_REQUEST.value());
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(standardError);
+    }
+
+    @ExceptionHandler(InvalidDateException.class)
+    public ResponseEntity<StandardError> invalidDate(InvalidDateException e){
+        StandardError standardError = new StandardError(e.getMessage(),
+                DateUtils.convertSystemTimeMillisToString(System.currentTimeMillis()),
+                HttpStatus.NOT_ACCEPTABLE.value());
+
+        return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(standardError);
     }
 }
