@@ -19,8 +19,9 @@ public class TransferenciaService {
     private TransferenciaRepository transferenciaRepository;
 
     public List<Transferencia> findAllByContaId(Integer id){
-        Optional<List<Transferencia>> obj = transferenciaRepository.findAllByContaId(id);
-        return obj.orElseThrow(() -> new ObjectNotFoundException(1, "Conta não encontrada"));
+        //validar se conta existe
+        List<Transferencia> obj = transferenciaRepository.findByConta_Id(id);
+        return obj;
     }
 
     public List<Transferencia> findAllFiltered(Filtro filtro){
@@ -30,6 +31,8 @@ public class TransferenciaService {
 
             LocalDateTime dataInicio = DateUtils.strToLocalDateTime(filtro.getDataInicio());
             LocalDateTime dataFim = DateUtils.strToLocalDateTime(filtro.getDataFim());
+
+            //validar data fim e data inicio
 
             if(filtro.getNomeOperador() == null)
                 obj = transferenciaRepository.
@@ -44,5 +47,9 @@ public class TransferenciaService {
             obj = transferenciaRepository.findAllByOperadorTransacao(filtro.getNomeOperador());
 
         return obj.orElseThrow(() -> new ObjectNotFoundException(1, "Não foram encontradas transferências com os filtros informados"));
+    }
+
+    public List<Transferencia> findAll(){
+        return transferenciaRepository.findAll();
     }
 }

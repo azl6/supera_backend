@@ -26,20 +26,21 @@ public class Transferencia implements Serializable {
     @Column(name = "nome_operador_transacao")
     private String operadorTransacao;
     @ManyToOne
+    @JoinColumn(name = "conta_id")
     private Conta conta;
-    private Integer conta_id;
+
 
     public Transferencia() {
     }
 
-    public Transferencia(Integer id, LocalDateTime  dataTransferencia, Double valor, String tipo, String operadorTransacao, Conta conta, Integer conta_id) {
+    public Transferencia(Integer id, LocalDateTime  dataTransferencia, Double valor, String tipo, String operadorTransacao, Conta conta) {
         this.id = id;
         this.dataTransferencia = dataTransferencia;
         this.valor = valor;
         this.tipo = tipo;
         this.operadorTransacao = operadorTransacao;
         this.conta = conta;
-        this.conta_id = conta_id;
+
     }
 
     @Override
@@ -100,13 +101,5 @@ public class Transferencia implements Serializable {
 
     public void setConta(Conta conta) {
         this.conta = conta;
-    }
-
-    public Integer getConta_id() {
-        return conta_id;
-    }
-
-    public void setConta_id(Integer conta_id) {
-        this.conta_id = conta_id;
     }
 }

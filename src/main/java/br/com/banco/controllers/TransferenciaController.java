@@ -31,4 +31,10 @@ public class TransferenciaController {
         List<Transferencia> obj = transferenciaService.findAllFiltered(filtro);
         return ResponseEntity.ok().body(obj);
     }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<Transferencia>> findAll(){
+        List<Transferencia> obj = transferenciaService.findAll();
+        return ResponseEntity.ok().body(obj);
+    }
 }
