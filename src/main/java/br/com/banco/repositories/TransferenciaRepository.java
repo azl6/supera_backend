@@ -14,11 +14,11 @@ public interface TransferenciaRepository extends JpaRepository<Transferencia, In
 
     List<Transferencia> findAllByContaId(Integer contaId);
 
-    Optional<List<Transferencia>> findAllByDataTransferenciaBetween(LocalDateTime dataInicio, LocalDateTime dataFim);
-    Optional<List<Transferencia>> findAllByDataTransferenciaBetweenAndOperadorTransacao(
+    List<Transferencia> findAllByDataTransferenciaBetween(LocalDateTime dataInicio, LocalDateTime dataFim);
+    List<Transferencia> findAllByDataTransferenciaBetweenAndOperadorTransacao(
                                                                             LocalDateTime dataInicio,
                                                                             LocalDateTime dataFim,
                                                                             String operadorTransacao
     );
-    Optional<List<Transferencia>> findAllByOperadorTransacao(String operadorTransacao);
+    List<Transferencia> findAllByOperadorTransacao(String operadorTransacao);
 }

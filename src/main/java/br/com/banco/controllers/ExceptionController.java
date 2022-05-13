@@ -1,5 +1,6 @@
 package br.com.banco.controllers;
 
+import br.com.banco.exceptions.ObjectNotFoundException;
 import br.com.banco.exceptions.StandardError;
 import br.com.banco.utils.DateUtils;
 import org.springframework.http.HttpStatus;
@@ -27,5 +28,14 @@ public class ExceptionController {
             return new StandardError(objectError.getDefaultMessage(),
                     DateUtils.convertSystemTimeMillisToString(System.currentTimeMillis()),
                     HttpStatus.NOT_ACCEPTABLE.value());
+        }
+
+        @ExceptionHandler(ObjectNotFoundException.class)
+        public ResponseEntity<StandardError> notFound(ObjectNotFoundException e){
+            StandardError standardError = new StandardError(e.getMessage(),
+                                                           DateUtils.convertSystemTimeMillisToString(System.currentTimeMillis()),
+                                                           HttpStatus.NOT_FOUND.value());
+
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(standardError);
         }
 }

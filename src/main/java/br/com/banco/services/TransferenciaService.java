@@ -19,15 +19,13 @@ public class TransferenciaService {
     private TransferenciaRepository transferenciaRepository;
 
     public List<Transferencia> findAllByContaId(Integer id){
-        System.out.println("id no service: " + id);
         //validar se conta existe
         List<Transferencia> obj = transferenciaRepository.findAllByContaId(id);
-        System.out.println("obj retornado: " + obj);
         return obj;
     }
 
     public List<Transferencia> findAllFiltered(FiltroRequestDTO filtro){
-        Optional<List<Transferencia>> obj = Optional.empty();
+        List<Transferencia> obj;
 
         if(filtro.getDataInicio() != null && filtro.getDataFim() != null){
 
@@ -48,7 +46,8 @@ public class TransferenciaService {
         }else
             obj = transferenciaRepository.findAllByOperadorTransacao(filtro.getNomeOperador());
 
-        return obj.orElseThrow(() -> new ObjectNotFoundException(1, "Não foram encontradas transferências com os filtros informados"));
+        if(obj.isEmpty()) throw new ObjectNotFoundException(1, "Não foram encontradas transferências com os filtros informados");
+        return obj;
     }
 
     public List<Transferencia> findAll(){
