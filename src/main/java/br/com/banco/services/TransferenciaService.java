@@ -22,17 +22,14 @@ public class TransferenciaService {
     private TransferenciaRepository transferenciaRepository;
 
     public List<Transferencia> findAllByContaId(Integer contaId){
-
         //validando se a conta informada existe
-        if(!transferenciaRepository.existsByContaId(contaId))
-            throw new ObjectNotFoundException("O número da conta informada não está cadastrado");
+        validateBankAccountExists(contaId);
 
         List<Transferencia> obj = transferenciaRepository.findAllByContaId(contaId);
         return obj;
     }
 
     public List<Transferencia> findAllFiltered(FiltroRequestDTO filtro){
-
         //verificando se o filtro não é nulo
         validateFilterIsNotNull(filtro);
 
@@ -69,6 +66,7 @@ public class TransferenciaService {
     //função para filtragem por nome do operador
     public List<Transferencia> filterByOperador(List<Transferencia> list, FiltroRequestDTO filtro){
         List<Transferencia> res = new ArrayList<>();
+
             for(Transferencia transferencia: list){
 
                 //caso a operação verificada seja do tipo transferência
@@ -107,6 +105,11 @@ public class TransferenciaService {
             if(filtro.getDataInicio() != null && filtro.getDataFim() == null ||
                filtro.getDataFim() != null && filtro.getDataInicio() == null)
                 throw new InvalidDateException("Ambos os campos <dataInicio> e <dataFim> devem ser informados");
+        }
+
+        private void validateBankAccountExists(Integer contaId){
+            if(!transferenciaRepository.existsByContaId(contaId))
+                throw new ObjectNotFoundException("O número da conta informada não está cadastrado");
         }
 
     public List<Transferencia> findAll(){

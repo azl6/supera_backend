@@ -1,5 +1,6 @@
 package br.com.banco.entities;
 
+import br.com.banco.dto.TransferenciaResponseDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import javax.persistence.*;
 import java.io.Serializable;
@@ -48,6 +49,11 @@ public class Transferencia implements Serializable {
                 ", operadorTransacao='" + operadorTransacao + '\'' +
                 ", contaResponsavel=" + conta.getNomeResponsavel() +
                 '}';
+    }
+
+    public TransferenciaResponseDTO toResponseDto(){
+        return new TransferenciaResponseDTO(id, dataTransferencia, valor,
+                                            tipo, operadorTransacao, conta.toResponseDto());
     }
 
     public Integer getId() {

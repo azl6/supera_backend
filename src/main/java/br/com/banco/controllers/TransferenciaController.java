@@ -1,6 +1,7 @@
 package br.com.banco.controllers;
 
 import br.com.banco.dto.FiltroRequestDTO;
+import br.com.banco.dto.TransferenciaResponseDTO;
 import br.com.banco.entities.Transferencia;
 import br.com.banco.services.TransferenciaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,6 @@ public class TransferenciaController {
 
     @GetMapping("/{contaId}")
     public ResponseEntity<List<Transferencia>> findAllByContaId(@PathVariable Integer contaId){
-        System.out.println("contaId no controller: " + contaId);
         List<Transferencia> obj = transferenciaService.findAllByContaId(contaId);
         return ResponseEntity.ok().body(obj);
     }

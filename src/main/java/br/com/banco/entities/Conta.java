@@ -1,5 +1,6 @@
 package br.com.banco.entities;
 
+import br.com.banco.dto.ContaResponseDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.io.Serializable;
@@ -36,6 +37,10 @@ public class Conta implements Serializable {
                 ", nome_responsavel='" + nomeResponsavel + '\'' +
                 ", transferencia=" + transferencia +
                 '}';
+    }
+
+    public ContaResponseDTO toResponseDto(){
+        return new ContaResponseDTO(id, nomeResponsavel);
     }
 
     public Integer getId() {
