@@ -1,6 +1,7 @@
 package br.com.banco.services;
 
 import br.com.banco.dto.FiltroRequestDTO;
+import br.com.banco.dto.TransferenciaResponseDTO;
 import br.com.banco.entities.Transferencia;
 import br.com.banco.exceptions.InvalidDateException;
 import br.com.banco.exceptions.NullFilterException;
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 public class TransferenciaService {
@@ -110,6 +112,13 @@ public class TransferenciaService {
         private void validateBankAccountExists(Integer contaId){
             if(!transferenciaRepository.existsByContaId(contaId))
                 throw new ObjectNotFoundException("O número da conta informada não está cadastrado");
+        }
+
+        public List<TransferenciaResponseDTO> listToDto(List<Transferencia> list){
+            return list.stream().map(x -> {
+                return new TransferenciaResponseDTO(x.getId(), x.getDataTransferencia(), x.getValor(),
+                        x.getTipo(), x.getOperadorTransacao(), x.getConta().toResponseDto());
+            }).collect(Collectors.toList());
         }
 
     public List<Transferencia> findAll(){

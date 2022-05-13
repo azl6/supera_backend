@@ -19,21 +19,26 @@ public class TransferenciaController {
     private TransferenciaService transferenciaService;
 
     @GetMapping("/{contaId}")
-    public ResponseEntity<List<Transferencia>> findAllByContaId(@PathVariable Integer contaId){
+    public ResponseEntity<List<TransferenciaResponseDTO>> findAllByContaId(@PathVariable Integer contaId){
         List<Transferencia> obj = transferenciaService.findAllByContaId(contaId);
-        return ResponseEntity.ok().body(obj);
+        List<TransferenciaResponseDTO> response = transferenciaService.listToDto(obj);
+
+        return ResponseEntity.ok().body(response);
     }
 
     @GetMapping
-    public ResponseEntity<List<Transferencia>> findAllFiltered(@Valid @RequestBody FiltroRequestDTO filtro){
-        System.out.println(filtro);
+    public ResponseEntity<List<TransferenciaResponseDTO>> findAllFiltered(@Valid @RequestBody FiltroRequestDTO filtro){
         List<Transferencia> obj = transferenciaService.findAllFiltered(filtro);
-        return ResponseEntity.ok().body(obj);
+        List<TransferenciaResponseDTO> response = transferenciaService.listToDto(obj);
+
+        return ResponseEntity.ok().body(response);
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<Transferencia>> findAll(){
+    public ResponseEntity<List<TransferenciaResponseDTO>> findAll(){
         List<Transferencia> obj = transferenciaService.findAll();
-        return ResponseEntity.ok().body(obj);
+        List<TransferenciaResponseDTO> response = transferenciaService.listToDto(obj);
+
+        return ResponseEntity.ok().body(response);
     }
 }

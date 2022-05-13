@@ -1,7 +1,6 @@
 package br.com.banco.entities;
 
 import br.com.banco.dto.ContaResponseDTO;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -17,7 +16,6 @@ public class Conta implements Serializable {
     @Column(name = "nome_responsavel")
     private String nomeResponsavel;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "conta")
     private List<Transferencia> transferencia;
 
