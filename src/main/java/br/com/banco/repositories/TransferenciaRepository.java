@@ -11,7 +11,8 @@ import java.util.Optional;
 @Repository
 public interface TransferenciaRepository extends JpaRepository<Transferencia, Integer> {
 
-    List<Transferencia> findByConta_Id(Integer id);
+
+    List<Transferencia> findAllByContaId(Integer contaId);
 
     Optional<List<Transferencia>> findAllByDataTransferenciaBetween(LocalDateTime dataInicio, LocalDateTime dataFim);
     Optional<List<Transferencia>> findAllByDataTransferenciaBetweenAndOperadorTransacao(

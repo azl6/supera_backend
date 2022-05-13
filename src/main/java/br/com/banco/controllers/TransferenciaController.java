@@ -5,10 +5,7 @@ import br.com.banco.services.TransferenciaService;
 import br.com.banco.utils.Filtro;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,7 +17,8 @@ public class TransferenciaController {
     private TransferenciaService transferenciaService;
 
     @GetMapping("/{contaId}")
-    public ResponseEntity<List<Transferencia>> findAllByContaId(Integer contaId){
+    public ResponseEntity<List<Transferencia>> findAllByContaId(@PathVariable Integer contaId){
+        System.out.println("contaId no controller: " + contaId);
         List<Transferencia> obj = transferenciaService.findAllByContaId(contaId);
         return ResponseEntity.ok().body(obj);
     }

@@ -19,8 +19,10 @@ public class TransferenciaService {
     private TransferenciaRepository transferenciaRepository;
 
     public List<Transferencia> findAllByContaId(Integer id){
+        System.out.println("id no service: " + id);
         //validar se conta existe
-        List<Transferencia> obj = transferenciaRepository.findByConta_Id(id);
+        List<Transferencia> obj = transferenciaRepository.findAllByContaId(id);
+        System.out.println("obj retornado: " + obj);
         return obj;
     }
 
