@@ -34,10 +34,10 @@ public class TransferenciaService {
     public List<Transferencia> findAllFiltered(FiltroRequestDTO filtro){
 
         //verificando se o filtro não é nulo
-        if(filtro.getNomeOperador() == null &&
-           filtro.getDataInicio() == null   &&
-            filtro.getDataFim() == null)
-            throw new NullFilterException("Não foram informados filtros");
+        validateFilterIsNotNull(filtro);
+
+        //verificando se ambos dataFim e dataInicio foram informados
+        validateStartDateAndEndDateWereInformed(filtro);
 
         List<Transferencia> obj = new ArrayList<>();
 
@@ -47,8 +47,7 @@ public class TransferenciaService {
             LocalDateTime dataFim = DateUtils.strToLocalDateTime(filtro.getDataFim());
 
             //validando se a data final é maior que a data inicial
-            if (dataFim.isBefore(dataInicio))
-                throw new InvalidDateException("A <dataInicio> informada é mais atual que a <dataFim>");
+            validateEndDateIsGreater(dataInicio, dataFim);
 
             //filtrando entre duas datas
             obj = transferenciaRepository.findAllByDataTransferenciaBetween(dataInicio, dataFim);
@@ -90,6 +89,24 @@ public class TransferenciaService {
                 }
             };
             return res;
+        }
+
+        private void validateFilterIsNotNull(FiltroRequestDTO filtro){
+            if(filtro.getNomeOperador() == null &&
+               filtro.getDataInicio() == null   &&
+               filtro.getDataFim() == null)
+                throw new NullFilterException("Não foram informados filtros");
+        }
+
+        private void validateEndDateIsGreater(LocalDateTime startDate, LocalDateTime endDate){
+            if (endDate.isBefore(startDate))
+                throw new InvalidDateException("A <dataInicio> informada é mais atual que a <dataFim>");
+        }
+
+        private void validateStartDateAndEndDateWereInformed(FiltroRequestDTO filtro){
+            if(filtro.getDataInicio() != null && filtro.getDataFim() == null ||
+               filtro.getDataFim() != null && filtro.getDataInicio() == null)
+                throw new InvalidDateException("Ambos os campos <dataInicio> e <dataFim> devem ser informados");
         }
 
     public List<Transferencia> findAll(){
