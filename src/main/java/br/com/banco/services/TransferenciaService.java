@@ -20,13 +20,18 @@ public class TransferenciaService {
     @Autowired
     private TransferenciaRepository transferenciaRepository;
 
-    public List<Transferencia> findAllByContaId(Integer id){
-        //validar se conta existe
-        List<Transferencia> obj = transferenciaRepository.findAllByContaId(id);
+    public List<Transferencia> findAllByContaId(Integer contaId){
+
+        //validando se a conta informada existe
+        if(!transferenciaRepository.existsByContaId(contaId))
+            throw new ObjectNotFoundException("O número da conta informada não está cadastrado");
+
+        List<Transferencia> obj = transferenciaRepository.findAllByContaId(contaId);
         return obj;
     }
 
     public List<Transferencia> findAllFiltered(FiltroRequestDTO filtro){
+
         //verificando se o filtro não é nulo
         if(filtro.getNomeOperador() == null &&
            filtro.getDataInicio() == null   &&
@@ -40,8 +45,10 @@ public class TransferenciaService {
             LocalDateTime dataInicio = DateUtils.strToLocalDateTime(filtro.getDataInicio());
             LocalDateTime dataFim = DateUtils.strToLocalDateTime(filtro.getDataFim());
 
+            //filtrando entre duas datas
             obj = transferenciaRepository.findAllByDataTransferenciaBetween(dataInicio, dataFim);
 
+            //filtrando por data e operador caso todos os filtros sejam passados
             if(filtro.getNomeOperador() != null)
                 obj = filterByOperador(obj, filtro);
 
@@ -49,11 +56,13 @@ public class TransferenciaService {
         }else  //caso só seja passado o filtro de operador
             obj = filterByOperador(transferenciaRepository.findAll(), filtro);
 
-
+        //caso não sejam encontradas transferências com os filtros passados
         if(obj.isEmpty()) throw new ObjectNotFoundException("Não foram encontradas transferências com os filtros informados");
+
         return obj;
     }
 
+    //função para filtragem por nome do operador
     public List<Transferencia> filterByOperador(List<Transferencia> list, FiltroRequestDTO filtro){
         List<Transferencia> res = new ArrayList<>();
             for(Transferencia transferencia: list){
@@ -67,7 +76,7 @@ public class TransferenciaService {
                             res.add(transferencia);
                         }
 
-                        //caso seja uma transferência de saída
+                    //caso seja uma transferência de saída
                     }else if(transferencia.getValor() < 0){
                         if (Objects.equals(transferencia.getOperadorTransacao(), filtro.getNomeOperador())){
                             res.add(transferencia);

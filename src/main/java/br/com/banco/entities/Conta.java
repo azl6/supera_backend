@@ -1,7 +1,6 @@
 package br.com.banco.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -13,6 +12,7 @@ public class Conta implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_conta")
     private Integer id;
+
     @Column(name = "nome_responsavel")
     private String nomeResponsavel;
 

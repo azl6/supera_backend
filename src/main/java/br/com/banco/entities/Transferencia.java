@@ -1,7 +1,6 @@
 package br.com.banco.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -12,13 +11,17 @@ public class Transferencia implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
     @Column(name = "data_transferencia")
+
     private LocalDateTime dataTransferencia;
     private Double valor;
     private String tipo;
+
     @Column(name = "nome_operador_transacao")
     private String operadorTransacao;
+
     @ManyToOne
     @JoinColumn(name = "conta_id")
     private Conta conta;

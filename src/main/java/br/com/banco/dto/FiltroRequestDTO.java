@@ -1,10 +1,5 @@
 package br.com.banco.dto;
 
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.lang.Nullable;
-
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 public class FiltroRequestDTO {
