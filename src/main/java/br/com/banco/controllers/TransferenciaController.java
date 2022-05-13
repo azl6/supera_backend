@@ -1,5 +1,6 @@
 package br.com.banco.controllers;
 
+import br.com.banco.dto.FiltroRequestDTO;
 import br.com.banco.entities.Transferencia;
 import br.com.banco.services.TransferenciaService;
 import br.com.banco.utils.Filtro;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -24,7 +26,7 @@ public class TransferenciaController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Transferencia>> findAllFiltered(@RequestBody Filtro filtro){
+    public ResponseEntity<List<Transferencia>> findAllFiltered(@Valid @RequestBody FiltroRequestDTO filtro){
         System.out.println(filtro);
         List<Transferencia> obj = transferenciaService.findAllFiltered(filtro);
         return ResponseEntity.ok().body(obj);

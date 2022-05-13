@@ -1,5 +1,6 @@
 package br.com.banco.services;
 
+import br.com.banco.dto.FiltroRequestDTO;
 import br.com.banco.entities.Transferencia;
 import br.com.banco.repositories.TransferenciaRepository;
 import br.com.banco.utils.DateUtils;
@@ -8,6 +9,7 @@ import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -26,7 +28,7 @@ public class TransferenciaService {
         return obj;
     }
 
-    public List<Transferencia> findAllFiltered(Filtro filtro){
+    public List<Transferencia> findAllFiltered(FiltroRequestDTO filtro){
         Optional<List<Transferencia>> obj = Optional.empty();
 
         if(filtro.getDataInicio() != null && filtro.getDataFim() != null){
