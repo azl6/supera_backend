@@ -72,29 +72,37 @@ C) Filtro listando todas as transferências entre às <b>6 e 7 da manhã</b> do 
 D) Filtro listando todas as transferências do usuário <b>Fulano</b><br>
 ![filtro4](https://user-images.githubusercontent.com/80921933/168403784-df07d3b2-74a8-46c0-bbc8-14b71d1b7b39.png)
 
-
-
-
-
-
-
-
-
 ## Features
 
-+ <b>Exceções personalizadas:</b> O código foi programado para lançar exceções descritivas, que auxiliam o programador a encontrar a origem do problema. Alguns exemplos do uso de exceções personalizadas são:
++ <b>Exceções personalizadas:</b> O código foi programado para lançar exceções descritivas, que auxiliam o programador a encontrar a origem do problema. Mapeei todas as possíveis ações do usuário que podem causar problemas, e validei-as para não permitir que a requisição ocorra em momentos indevidos. 
 
-A) <br>
+Abaixo, seguem algumas situações que utilizam do artifício da validação do Spring Boot:
+
+A) @RequestBody da filtragem vazio<br>
+![exception1](https://user-images.githubusercontent.com/80921933/168404281-e2dcb5c3-2f29-4bd0-ac26-e68a8eace6c9.png)
 
 
 
-B) <br>
 
+B) Data mal-formatada<br>
+![exception2](https://user-images.githubusercontent.com/80921933/168404554-34cffd80-4557-433c-81a5-af7ca2e13746.png)
+
+C) Data-final menor que a data-inicial<br>
+![exception3](https://user-images.githubusercontent.com/80921933/168404832-ea2f9efb-a28e-4a49-8de2-67a39d0cdb32.png)
+
+D) Conta informada não cadastrada
+![exception4](https://user-images.githubusercontent.com/80921933/168405067-95f54e4a-64ac-48b4-be7d-89734a9da71f.png)
+
+Além destas, foram implementadas diversas outras exceções, que garantem a integridade do sistema. O projeto não possui endpoints para inserções, porém, validações de inserção também são de suma importância para a qualidade do projeto.
 
 
 
 ## Melhorias
 
-+ Implementar endpoint para buscar todas as possíveis rotas;
-+ Implementar testes de Controller;
-+ Consumir a API com uma interface web. 
+Infelizmente, peguei o projeto em uma semana relativamente puxada. Desta forma, deixei de implementar muita coisa que sou capaz, já que tive que finalizar o projeto no pouco tempo que tive. De qualquer forma, prezei pela qualidade do código do backend, que é a minha especialidade.
+
+Alguns pontos adicionais que eu gostaria de ter implementado são os seguintes:
+
++ <b>Testes unitários cobrindo as camadas de controller, service e repository</b>
++ <b>Subir o ambiente da aplicação via docker-compose</b>
++ <b>Implementar ferramentas de observabilidade</b>
