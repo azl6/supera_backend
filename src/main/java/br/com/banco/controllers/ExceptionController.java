@@ -41,21 +41,21 @@ public class ExceptionController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(standardError);
         }
 
-    @ExceptionHandler(NullFilterException.class)
-    public ResponseEntity<StandardError> nullFilter(NullFilterException e){
-        StandardError standardError = new StandardError(e.getMessage(),
-                DateUtils.convertSystemTimeMillisToString(System.currentTimeMillis()),
-                HttpStatus.BAD_REQUEST.value());
+        @ExceptionHandler(NullFilterException.class)
+        public ResponseEntity<StandardError> nullFilter(NullFilterException e){
+            StandardError standardError = new StandardError(e.getMessage(),
+                    DateUtils.convertSystemTimeMillisToString(System.currentTimeMillis()),
+                    HttpStatus.BAD_REQUEST.value());
 
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(standardError);
-    }
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(standardError);
+        }
 
-    @ExceptionHandler(InvalidDateException.class)
-    public ResponseEntity<StandardError> invalidDate(InvalidDateException e){
-        StandardError standardError = new StandardError(e.getMessage(),
-                DateUtils.convertSystemTimeMillisToString(System.currentTimeMillis()),
-                HttpStatus.NOT_ACCEPTABLE.value());
+        @ExceptionHandler(InvalidDateException.class)
+        public ResponseEntity<StandardError> invalidDate(InvalidDateException e){
+            StandardError standardError = new StandardError(e.getMessage(),
+                    DateUtils.convertSystemTimeMillisToString(System.currentTimeMillis()),
+                    HttpStatus.NOT_ACCEPTABLE.value());
 
-        return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(standardError);
-    }
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(standardError);
+        }
 }
