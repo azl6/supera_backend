@@ -3,6 +3,9 @@
 
 >Status: Concluído ✔️
 
+🚨<b>IMPORTANTE</b>🚨 Acabei de perceber que errei em alguns pontos cruciais. Primeiro que, quando filtrando por operador, as transferências do tipo <b>DEPÓSITO</b> e <b>SAQUE</b> também deveriam ser listadas (como transferência de entrada e saída, respectivamente). Na pressa, acabei achando que somente as do tipo <b>TRANSFERÊNCIA</b> seriam listadas. É uma falha que poderia ser rapidamente consertada, que acabei errando por pressa e pela ambiguidade da forma como o teste foi redigido.
+
+
 ## Tecnologias usadas:
 
 + Java
